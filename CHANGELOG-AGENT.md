@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Nigel (cycle 2)
+
+2026-04-27 17:00 nigel — focus axis: trust architecture, top issue: "Studio address coming soon" + stock-only photography keep trust ceiling capped regardless of design quality
+
+---
+
 ## 2026-04-27 — Spark (cycle 2)
 
 2026-04-27 13:00 spark — Frame B: liga/dlig ligatures + letter-spacing -0.012em on ethos statement, copper hairline radial-fade rule (replaced solid 1.5px bar), faint copper radial vignette on espresso band (replaced flat bg), hairline border-top above eyebrow label (no content removed), ref Aesop/Le Labo editorial restraint

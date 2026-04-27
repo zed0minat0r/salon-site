@@ -1,99 +1,111 @@
 # AUDIT — Atelier Salon Site
-## Cycle 1 — 2026-04-27
-**Axis:** Conversion friction
-**Score:** 6.1 / 10
+## Cycle 2 — 2026-04-27
+**Axis:** Trust architecture
+**Score:** 6.4 / 10 (delta: +0.3 from cycle 1 baseline of 6.1)
 **Live URL:** https://zed0minat0r.github.io/salon-site/
 
 ---
 
 ## Scoring context
 
-Scored from the perspective of a prospective salon client who landed cold via a Google search. The standard: would this person trust the studio enough to submit a booking request within 90 seconds?
+Scored from the perspective of a prospective salon client who landed cold — perhaps via a Google search for a NYC-area urban-luxury salon. The 90-second question: does this site give me enough reason to submit a booking request, pick up the phone, or send an email?
 
-Expected range for a new site with stock photography, no real address, no real reviews: 5.5–7.5. This site lands at **6.1** — genuinely above average in craft and visual coherence, but conversion friction from missing trust signals prevents it from reaching "I'm booking today."
+Cycle 2 delivered three meaningful cycles of work: an ethos bridge section, a form fallback so the booking path no longer hard-fails, and a mobile-polish pass. The score moves from 6.1 to 6.4. Progress is genuine but modest — the cap of 7.5 exists for correct structural reasons (no real photography, no real reviews, no real address), and those gaps remain fully open.
+
+---
+
+## What landed this cycle (per commit)
+
+- **5fa0b54** — 3 critical bugs fixed: hamburger now fires on mobile, services section no longer leaves a scroll-void after panel 5, form fallback replaced dead Formspree PLACEHOLDER with a mailto: draft open + inline success state.
+- **4454330** — QA diagnostic commit (no user-facing change; surfaces 7 issues for prioritisation).
+- **85e7b01** — Ethos bridge section ("Considered cuts. Honest color. Slow conversation.") inserted between Services and Stylists; email fallback added to Visit section.
+- **d6c9f09** — Spark Frame B: Cormorant ligatures enabled, letter-spacing tightened to -0.012em on ethos statement, copper rule upgraded from solid bar to radial-fade hairline, faint copper radial vignette on espresso band.
+- **e9d4a88** — Pixel: font floors to 13px on hero eyebrow, ethos label, service price, form labels, footer links; visit email tap target 44px; footer nav min-width 44px.
+
+---
+
+## What works (confidence-builders)
+
+- **Form is no longer a dead end.** The mailto: fallback is genuinely clever — a visitor who fills in the form now gets affirmative feedback (inline success state) and an email draft opens pre-filled. For a pre-launch demo, this is a real improvement over the error the PLACEHOLDER endpoint would have produced.
+- **Ethos bridge earns its position.** "Considered cuts. Honest color. Slow conversation." in Cormorant italic at clamp(2rem–3.5rem) with the copper radial-fade hairline rule is restrained and editorial. It lands as a beat of breathing room between the scroll-heavy services section and the stock-portrait stylists section. The radial vignette on the espresso band is subtle enough to add warmth without reading as a design asset.
+- **Horizontal scroll-lock services remain the site's strongest differentiator.** The scroll-void bug is gone. The five-panel experience with copper price-rule dividers and progress dots is genuinely more engaging than any competitor salon site I would expect to encounter. This section alone lifts the overall impression.
+- **Mobile passes basic usability.** The 13px font floors mean no text is reading below readable threshold on a 375px device. Tap targets at 44px across hamburger, booking CTAs, and visit email link mean no frustrating mis-taps.
+- **Visual language is coherent.** Espresso/cream/copper palette, Cormorant + DM Sans pairing, and the art-deco silhouette scene are consistent across every section. The site does not look assembled from different template fragments.
+
+---
+
+## What's still off (actual problems)
+
+- **"Studio address coming soon" is still there.** This is the single biggest trust-breaker from a cold client's perspective. A salon with no address is not a salon — it is a landing page. Hours, email, and a well-formatted visit section all create the expectation that a real place exists. "Coming soon" undercuts every good thing the design accomplishes. Score impact: this keeps the Visit section at 4.8. A real client who scrolls this far and finds no address will close the tab.
+- **Stock photography is the elephant in every room.** Hero image, all five service panels, all three stylist portraits, all nine gallery images are Unsplash. The stylists section headline "Meet your stylists" over stock-model portraits remains the most nakedly placeholder moment on the site. "The proof." gallery heading followed by generic Unsplash hair photography does not demonstrate this studio's work — it demonstrates that Unsplash has salon photos.
+- **No social proof whatsoever.** Zero reviews, zero testimonials, zero press mentions, zero client count or service count. Every luxury salon at this price point (cuts from $85, color from $140) earns trust through social proof. Without it, a prospective client comparing two salons will default to the one with Google reviews, even if this site is better-designed.
+- **The ethos bridge, while well-executed, is currently the loudest trust signal.** That is a problem. The most convincing piece of copy on the site is a three-sentence philosophy statement, not evidence of actual work, real people, or a physical location. The bridge earns its place aesthetically but cannot carry the trust load it is being asked to carry.
+- **Form still has a visible PLACEHOLDER comment in the HTML source.** A motivated client who checks source (not unheard-of for someone spending $140+ on a color service) will see `action="https://formspree.io/f/PLACEHOLDER"` and a `<!-- TODO -->` comment. Minor, but the mailto fallback is the functional path — the dead action URL should be swapped to `action="#"` or removed until a real endpoint exists, to avoid the fallback feeling like an accident.
 
 ---
 
 ## Section-by-section breakdown
 
 ### NAV — 7.5
-Strong. Transparent → frosted-glass on scroll is executed cleanly. The copper `Book Now` CTA in the nav is correctly prominent. Hamburger tap target passes 44px. Wordmark is legible and appropriately editorial. Minor concern: nav link font-size (0.75rem / 12px) is at the small end but is a deliberate all-caps label pattern, not a readability failure at desktop.
+No change from cycle 1. Still the cleanest section: transparent-to-frosted-glass, copper CTA, 44px hamburger. Scores as before.
 
 ### HERO — 7.8
-The strongest section. The Cormorant Garamond word-reveal with stagger + skewY is distinctive and not template-pattern. Headline copy ("Where the haircut feels considered.") is well-written — specific enough to feel editorial, soft enough to be non-threatening. The warm brass radial glow reads atmospheric. The art-deco silhouette scene with colonnade arches, spires, and stepped plinth is the right move — more architectural authority than tropical fronds. The slow drift animations on back/mid layers add depth without noise. Hero sub-copy and action buttons are clean. The vertical scroll cue (copper-to-transparent line) is a good touch.
+No change from cycle 1. Still the strongest section. The word-reveal headline, warm brass glow, and art-deco silhouette scene remain the most distinctive design moves on the site.
 
-Penalty: hero is left-aligned on desktop, which is intentional and correct for editorial. On mobile, actions column-stack but remain left-aligned — Pixel flagged this as intentional. No penalty.
+### SERVICES (horizontal scroll-lock) — 7.7
+Scroll-void bug is fixed. The experience now transitions cleanly out of panel 5. Small upward tick for the bug fix; otherwise unchanged.
 
-### SERVICES (horizontal scroll-lock) — 7.6
-This is the signature experience the customer asked for and it delivers. The vertical-to-horizontal lock is well-implemented: the runway/sticky/track pattern is technically sound, the progress dots correctly mirror panel position, and the 80/20 scroll budget gives a proper dwell on the final panel. The copper rule above each price-CTA row (Spark Frame B contribution) is a clean typographic upgrade over raw gap spacing.
-
-The panel photography is generic Unsplash salon stock, which is expected at this stage. The "01–05" display numerals at 10% opacity register as intentional panel counting, not ghost-numeral decoration — correct.
-
-Penalty: on mobile, the horizontal lock correctly falls back to vertical stacking. The stacked panels are clean but tall (90vw, max 560px). A prospective client on mobile sees a wall of five full-screen images before reaching Stylists — scroll fatigue risk. Not a fix for this cycle, flagged for cycle 2.
+### ETHOS BRIDGE — 7.2
+New this cycle. The editorial statement and copper rule are well-executed. The radial vignette is a nice touch. Score held slightly below the hero because it is adding atmosphere rather than evidence. As a typographic moment it succeeds; as a trust-builder it is limited.
 
 ### STYLISTS — 5.8
-This section is where conversion friction concentrates. The role labels (Senior Colorist / Precision Stylist / Texture Specialist) are correctly non-fabricated after Builder's de-fabrication pass. The bios are generic but not dishonest. The card layout, 4:5 portrait aspect ratio, and hover lift are well-executed.
-
-However: the Unsplash portraits are of clearly stock-photo subjects. "Meet the team" framing over stock faces will immediately register as placeholder to any discerning visitor. There is no mechanism — even a note — that frames this as a live-demo state. From a cold client's perspective this reads as a salon that doesn't want you to know who works there, which is a trust-reducing signal. The "Book a color service" CTAs work but land on the contact form, not a named stylist — the chain is broken.
+No change from cycle 1. The de-fabricated role titles remain correctly non-invented. The Unsplash portraits remain the trust gap they were. No improvement this cycle.
 
 ### GALLERY — 6.8
-Nine images, varied grid with tall and wide variants. The desaturate-to-color reveal on hover is well-executed — the filter transition from 75% saturation to full reads as intentional editorial curation rather than lazy lightbox. The copper L-corner bracket on hover is the right accent at this scale. Grid composition avoids monotony.
+No change from cycle 1. Nine Unsplash images with the L-corner hover treatment. Looks good. Proves nothing about this salon.
 
-Penalty: every image is generic Unsplash salon photography. A prospective client looking for evidence of this specific studio's work receives none. The section headline "The proof." sets an expectation the stock photos cannot fulfill.
+### VISIT — 5.2
+Small improvement from cycle 1's 4.8 — the addition of the mailto: email link (`hello@atelier.studio`) gives a visitor an alternative contact channel, which is meaningful. The hours are clean. The "Studio address coming soon" remains a hard trust deduction. Not quite 5.8 because the email link helps but the missing address is still a significant blocker.
 
-### VISIT — 4.8
-The weakest section from a conversion standpoint. "Studio address coming soon" is a significant trust gap — a client cannot verify this studio exists in physical space. This is correctly attributed to Builder's de-fabrication (an invented NYC address was worse), but from a cold client's 90-second read, "Studio address coming soon" is a concrete reason not to book. The hours are present and formatted cleanly. The two-column layout collapses properly on mobile.
-
-Note: this is a pre-launch placeholder situation, not a design failure. Framed as the highest-priority content unlock for cycle 2.
-
-### CONTACT / BOOKING FORM — 5.2
-The form is well-structured: six fields, clean label typography, copper focus glow on active inputs, 24-hour confirmation message, and optimistic loading state. The UX of the form itself is better than most salon sites.
-
-Critical conversion-friction issue: the `action` attribute points to `https://formspree.io/f/PLACEHOLDER`. This form will return an error or go nowhere when a real visitor submits. On a live public URL, a broken booking form is a hard conversion blocker. A motivated client who fills in all six fields and hits "Send Request" will receive an error response — and leave.
-
-Secondary: no phone number displayed, no WhatsApp link, no alternative booking channel. The entire conversion chain runs through one form endpoint that currently does not work.
+### CONTACT / BOOKING FORM — 6.2
+Meaningful improvement from cycle 1's 5.2. The form itself was always well-designed. The mailto fallback means a prospective client who fills it in and submits will now get a usable outcome — an email draft opens pre-filled with their inquiry. The inline success state gives affirmative feedback. The `PLACEHOLDER` action URL technically still sits in the markup and would be worth addressing, but the JS intercept catches it cleanly. Real improvement.
 
 ### FOOTER — 7.0
-Clean. The 3-column grid (brand / nav / social) collapses to 1-column on mobile. The wordmark, tagline ("Made by hand — one appointment at a time."), and copper social link hover states are well-executed. Social links are present but point to `#` — no real Instagram or TikTok destination. This reads as expected placeholder to visitors who notice it, but it removes a trust signal (an active Instagram with real client work is a common proxy for "this salon is real and active").
+No change from cycle 1. Still clean, still placeholder social links pointing to `#`.
 
 ---
 
 ## Score summary
 
-| Section           | Score |
-|-------------------|-------|
-| Nav               | 7.5   |
-| Hero              | 7.8   |
-| Services          | 7.6   |
-| Stylists          | 5.8   |
-| Gallery           | 6.8   |
-| Visit             | 4.8   |
-| Contact / Form    | 5.2   |
-| Footer            | 7.0   |
-| **Overall**       | **6.1** |
+| Section            | Cycle 1 | Cycle 2 |
+|--------------------|---------|---------|
+| Nav                | 7.5     | 7.5     |
+| Hero               | 7.8     | 7.8     |
+| Services           | 7.6     | 7.7     |
+| Ethos Bridge       | —       | 7.2     |
+| Stylists           | 5.8     | 5.8     |
+| Gallery            | 6.8     | 6.8     |
+| Visit              | 4.8     | 5.2     |
+| Contact / Form     | 5.2     | 6.2     |
+| Footer             | 7.0     | 7.0     |
+| **Overall**        | **6.1** | **6.4** |
 
 ---
 
-## Top-3 priorities for cycle 2
+## Cycle 3 top-3 priorities
 
-### Priority 1 — Fix the broken form endpoint (Builder)
-The Formspree action URL is `PLACEHOLDER`. On a live URL, any visitor who submits the form receives an error. This is the highest-severity conversion-friction issue on the site. Builder should replace the `PLACEHOLDER` with a working Formspree endpoint (free tier is sufficient for demo purposes) or swap to a mailto fallback with a clear "we'll be in touch" confirmation. Until this is resolved, the entire booking funnel is non-functional.
+### Priority 1 — Real photography: at minimum the hero and gallery (Builder + human input)
+**Why first:** Stock photography is now the primary trust ceiling. The ethos bridge and scroll-lock services create a design impression that the photography directly contradicts. A real client looking at "The proof." followed by Unsplash images concludes the salon has no work to show.
+**Acceptance criteria:** At minimum 3 gallery images are real work from this studio (actual client results). Alternatively, a clear editorial framing — "Opening soon — follow us on Instagram for our work" with a real Instagram link — is a legitimate pre-launch alternative that is more honest than stock-as-portfolio. If real photos cannot land this cycle, the gallery section headline must change from "The proof." to something that does not invite the comparison.
 
-Target agent: Builder
-Axis: Conversion / trust
+### Priority 2 — One real social proof signal in any form (Builder)
+**Why second:** The site has no reviews, no testimonial, no client count, no press mention. A luxury salon charging $85+ for a cut earns that rate through social trust. Even one real, attributed testimonial ("I've been going to Atelier for three years — the precision of the cut is unlike anything I've had before. — M.R., Lower East Side") would move the needle more than any typographic refinement.
+**Acceptance criteria:** One testimonial block exists on the page, formatted as an editorial pull-quote (Cormorant italic, copper rule), and the quote is attributed even if partially anonymised (first name + neighbourhood is sufficient). Fabricated generic phrases ("Best salon ever!" — Anonymous) are worse than nothing and must not appear. If no real testimonial exists yet, a "Join our waitlist" mechanism or "Opening [Month] 2026" launch countdown is a legitimate pre-launch alternative.
 
-### Priority 2 — Add a trust bridge above the stylists section (Spark)
-The Stylists section currently reads as stock-photo placeholders with role titles, which a discerning visitor will clock within 5 seconds. Spark should introduce a brief editorial bridge element — not fake reviews, not fabricated credentials — between Services and Stylists that builds ambient trust. Options: a pull-quote strip with a single editorial philosophy statement in large Cormorant type, or a narrow "philosophy" band (espresso background, cream type, copper rule) that articulates the studio's approach. This gives the section above the stylist cards something to land on before the visitor reaches the "who is this actually?" moment.
-
-Target agent: Spark
-Axis: Trust / editorial coherence
-
-### Priority 3 — Add an alternative contact channel in the Visit section (Builder)
-"Studio address coming soon" paired with a broken form endpoint means a visitor who wants to engage has no fallback. Builder should add a phone number or email address to the Visit section — even a placeholder format that the client will swap with real contact data — and a secondary CTA like a tel: or mailto: link. This does not require a real address. It signals the studio is reachable, which partially compensates for the missing physical location.
-
-Target agent: Builder
-Axis: Conversion / trust
+### Priority 3 — Replace `action="PLACEHOLDER"` with `action="#"` and clean TODO comments from production HTML (Builder)
+**Why third:** The mailto fallback works and is a real improvement. But the PLACEHOLDER endpoint and visible TODO comments in the HTML source are sloppy on a live public URL. A client who views source — or a developer evaluating this salon's credibility — will see the scaffold underneath the polish. This is a 10-minute fix.
+**Acceptance criteria:** `action` attribute on the contact form is either a live Formspree endpoint or `action="#"` (letting the JS intercept handle it cleanly). All `<!-- TODO -->` comments visible in production HTML are removed or moved to a separate dev-notes file. Footer social links point to real URLs or the social links block is removed until real accounts exist.
 
 ---
 
-*Nigel audit complete. Next cycle should focus on conversion path integrity before further visual polish.*
+*Nigel cycle 2 audit complete. Score 6.4. Cap of 7.5 remains in force until real photography, real reviews, and real address land.*
