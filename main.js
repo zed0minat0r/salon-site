@@ -1,0 +1,212 @@
+/* ============================================
+   ATELIER — main.js
+   Scroll-lock services, nav, reveals, form
+   ============================================ */
+
+'use strict';
+
+/* ---- Nav: transparent → solid on scroll ---- */
+(function () {
+  var nav = document.getElementById('nav');
+  if (!nav) return;
+
+  function onScroll() {
+    if (window.scrollY > 40) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ---- Mobile hamburger menu ---- */
+(function () {
+  var hamburger = document.getElementById('navHamburger');
+  var links     = document.getElementById('navLinks');
+  if (!hamburger || !links) return;
+
+  hamburger.addEventListener('click', function () {
+    var open = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    links.classList.toggle('is-open', !open);
+  });
+
+  // Close on any link tap (mobile UX)
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      hamburger.setAttribute('aria-expanded', 'false');
+      links.classList.remove('is-open');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function (e) {
+    if (!nav.contains(e.target)) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      links.classList.remove('is-open');
+    }
+  });
+
+  var nav = document.getElementById('nav');
+})();
+
+/* ---- Smooth anchor scroll ---- */
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 60;
+      var y = target.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+})();
+
+/* ---- Services: sticky pin + horizontal slide ----
+   Vertical scroll through .services-runway maps to
+   translateX on .services-track, locking the viewport
+   and sliding 5 panels sideways through it.
+   On mobile the runway height is auto so this IIFE
+   exits gracefully (runway height ~ inner height). */
+(function () {
+  var runway  = document.getElementById('services-runway');
+  var track   = document.getElementById('services-track');
+  var panels  = document.querySelectorAll('.service-fp');
+  var dots    = document.querySelectorAll('.services-dot');
+
+  if (!runway || !track || !panels.length) return;
+
+  var numPanels   = panels.length;
+  var currentIdx  = -1;
+
+  function setActiveDot(idx) {
+    if (idx === currentIdx) return;
+    currentIdx = idx;
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === idx);
+      d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+  }
+
+  function onScroll() {
+    var rect     = runway.getBoundingClientRect();
+    var runwayH  = runway.offsetHeight;
+    var vh       = window.innerHeight;
+
+    // Guard: if runway is shorter than a viewport, skip
+    // (mobile stack layout where runway is auto-height)
+    var budget = runwayH - vh;
+    if (budget <= 0) {
+      track.style.transform = 'translateX(0)';
+      setActiveDot(0);
+      return;
+    }
+
+    var scrolled = -rect.top;
+    if (scrolled < 0) scrolled = 0;
+
+    var progress = scrolled / budget; // 0 → 1
+    if (progress > 1) progress = 1;
+
+    // First 80% of budget drives the slide; last 20% dwells on panel 5
+    var SLIDE_FRAC   = 0.80;
+    var slideProgress = progress / SLIDE_FRAC;
+    if (slideProgress > 1) slideProgress = 1;
+
+    var translatePct = -slideProgress * (numPanels - 1) * 100;
+    track.style.transform = 'translate3d(' + translatePct + 'vw, 0, 0)';
+
+    var idx = Math.round(slideProgress * (numPanels - 1));
+    if (idx >= numPanels) idx = numPanels - 1;
+    setActiveDot(idx);
+  }
+
+  // Dot clicks: jump to the scroll position for that panel
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
+      var budget    = runway.offsetHeight - window.innerHeight;
+      var segments  = numPanels - 1;
+      var SLIDE_FRAC = 0.80;
+      var target = segments > 0
+        ? runwayTop + (budget * SLIDE_FRAC / segments) * i + 2
+        : runwayTop + 2;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ---- Scroll reveal: .reveal-up → .is-visible ---- */
+(function () {
+  var items = document.querySelectorAll('.reveal-up');
+  if (!items.length) return;
+
+  // Respect prefers-reduced-motion: mark all visible immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    items.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach(function (el) { observer.observe(el); });
+})();
+
+/* ---- Contact form: loading state + success message ---- */
+(function () {
+  var form    = document.getElementById('contact-form');
+  var btn     = document.getElementById('submit-btn');
+  var success = document.getElementById('form-success');
+  if (!form || !btn || !success) return;
+
+  // Show success if redirected back with ?submitted=1
+  if (window.location.search.includes('submitted=1')) {
+    success.hidden = false;
+    form.hidden = true;
+  }
+
+  form.addEventListener('submit', function (e) {
+    // Basic client-side validation
+    var name    = form.querySelector('#f-name');
+    var email   = form.querySelector('#f-email');
+    var service = form.querySelector('#f-service');
+    var valid   = true;
+
+    [name, email, service].forEach(function (field) {
+      if (!field) return;
+      if (!field.value.trim()) {
+        field.style.borderColor = '#c0392b';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      return;
+    }
+
+    // Formspree handles the POST; show loading state optimistically
+    btn.classList.add('loading');
+    btn.disabled = true;
+  });
+})();
