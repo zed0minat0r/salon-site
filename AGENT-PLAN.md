@@ -1,148 +1,191 @@
-# AGENT-PLAN — Cycle 1: Atelier Salon Site
+# AGENT-PLAN — Atelier Salon Site
 
-**Cycle:** 1 (first refinement pass on brand-new scaffold)
-**Live:** https://zed0minat0r.github.io/salon-site/
-**Theme:** De-fabricate, then polish, then audit, then score.
-**Rationale:** Cycle 0 scaffold ships with realistic-sounding fake people, fake credentials, and a real-looking NYC address. That is the highest-risk problem on the live site — it must be neutralized before any visual polish or scoring. After Builder neutralizes, Spark refines the silhouette/hero composition, Pixel does the first-ever mobile alignment sweep at 375/414, and Nigel scores from a cold prospective-client perspective with strict 5.5–7.5 expectations.
-
----
-
-## Execution order
-
-### 1. Builder — De-fabricate placeholder content
-**Why now:** The scaffold contains fabricated-but-real-sounding details that violate the "no invented data" guardrail: stylist names with specific credential claims (Camille — "12 years NYC and London", Marcus — "trained under two Vidal Sassoon alumni"), a specific NYC street address (148 West 26th Street, Suite 4, New York NY 10001), and specific hours. None of this is verified. A prospective client could try to walk in.
-
-**Specific instructions:**
-- Replace the three stylist cards' specific names + biographical credentials with role-based placeholders that read as a *demo template*, not a real team. Examples: "Senior Stylist", "Color Director", "Texture Specialist". Bios should describe a *role* generically, not a person's history. Or: clearly mark the section "Sample stylist lineup — replace with real team" via a small ribbon/eyebrow.
-- Replace `alt` text references that name "Camille / Marcus / Sasha" so they no longer imply real portrait photography of real people.
-- Replace the specific Visit address with a clearly placeholder format (e.g. "[Studio Address — coming soon]" or "Your City, Your Street") OR add a visible "Sample location" eyebrow. Same for the suite number.
-- Hours are fine as a sample but add small note "sample hours" if displayed prominently.
-- Footer copyright "© 2026 Atelier Studio" — leave, but ensure no implied location.
-- Keep the "Atelier" brand name, the palette, the typography, the layout, the silhouette scene, and the horizontal scroll-lock — those are the design, not the fabricated content.
-
-**Memory guardrails:**
-- No fabricated data — no fake stylist credentials, no fake addresses (`feedback_no_invented_fight_data`).
-- Apps must NOT look AI-generated (`feedback_unique_design`) — placeholder copy should still feel editorial, not "Lorem ipsum."
-- No dev-content / template-marketplace language on the live demo (`feedback_no_dev_content`) — do NOT add "demo" banners or "sample template" headers visible to visitors.
-- Respectful tone in any visible copy.
-- Frame B / replace-when-adding does not apply here (this is removal of bad data, not feature pile-on).
-
-**Exit criteria:**
-- Zero specific real-sounding street addresses on the live page.
-- Zero stylist names that imply specific real people with specific verifiable credentials.
-- Page still reads as polished editorial salon site (no "TBD" / "Lorem ipsum" / "placeholder" visible).
-- Live URL renders cleanly post-deploy. Verify via Playwright at desktop + mobile.
-- Single commit. Update CHANGELOG-AGENT.md.
+**Cycle:** 2
+**Date:** 2026-04-27
+**Live URL:** https://zed0minat0r.github.io/salon-site/
+**Score baseline (cycle 1 close):** 6.1 / 10
+**Score target (cycle 2 close):** 6.4 – 6.8 (strict cap 7.5 until real photography + real reviews + real address all land)
 
 ---
 
-### 2. Spark — Hero & silhouette refinement (Frame A vs Frame B)
-**Why now:** The silhouette scene is the signature element the customer specifically asked for ("cool silhouette scenes"). Cycle 0 ships a first pass with three stacked SVG layers and large fronds — risk of reading template-y. Customer also called out hero word-reveal timing as polishable.
+## P1 status: DONE — mark and skip
 
-**Specific instructions:**
-- Build TWO frames as A/B candidates and commit both to a comparison branch or document both before picking one.
-  - **Frame A — Bigger swing:** Reimagine the silhouette scene composition. Could be: shift to art-deco architectural silhouette (less tropical foliage, more salon/mirror/chair forms), add subtle parallax on scroll, or replace the layered fronds with a more editorial single-element silhouette (e.g. a single tall vase/bottle profile in copper). Spark Frame A gets to break the current pattern.
-  - **Frame B — Refined polish:** Keep the existing 3-layer structure. Refine spacing, opacity stacking, color grading on the silhouettes. Tighten the word-reveal timing on the hero headline (current may stagger too slow or too fast — verify on live). Polish gallery hover micro-interactions. **Frame B keeps content count** — do not strip a layer or remove fronds.
-- Pick one frame, ship it. Document the alternative in the commit message.
-- Verify via Playwright on the live URL post-deploy at 1440 desktop and 375 mobile — do not trust headless theory.
+P1 (form action URL) was resolved in commit `5fa0b54`. Verified this cycle:
 
-**Memory guardrails:**
-- Replace when adding (`feedback_simplicity_over_polish`) — if Frame A introduces a new silhouette element, remove or replace the old one. No piling on.
-- Frame B keeps content count (`feedback_frame_b_richness`) — refine, don't strip.
-- No ghost numbers / large faded background numerals (`feedback_no_ghost_numbers`) — the service panels currently have "01 / 02 / 03" numbers that are visible/intentional, NOT ghosted background. Leave them as-is. Do not add ghosted numerals anywhere else.
-- Apps must NOT look AI-generated — the silhouette scene must feel intentional and editorial, not "AI added some tropical leaves."
-- Sites must be fun to scroll (`feedback_interesting_scroll`) — the horizontal scroll-lock is good, the hero word-reveal is good. Do not flatten.
-- Verify visually via Playwright, not theory.
+- `index.html` line 440 still carries the cosmetic `action="https://formspree.io/f/PLACEHOLDER"`, BUT
+- `main.js` lines 204–241 intercept the submit with `e.preventDefault()`, build an `encodeURIComponent` body across all six fields, open `mailto:hello@atelier.studio?subject=...&body=...` in a new tab, AND show the inline confirmation state.
 
-**Forbidden sections this cycle:**
-- Services horizontal scroll-lock structure — do not modify panel count, panel order, or the runway pattern. Polish only if needed.
-- Stylists section copy — Builder owns that this cycle.
-- Visit address — Builder owns that this cycle.
+The conversion path is no longer dead-on-submit. Builder this cycle should NOT touch the form. The placeholder string is intentionally left as a "swap when Formspree is provisioned" sentinel; the JS interceptor is the live path.
 
-**Exit criteria:**
-- One frame shipped to live, both documented in commit.
-- Hero scene either visibly different (Frame A) or visibly tighter (Frame B).
-- Word-reveal timing feels intentional on live URL.
-- No layer or content count reduction without a replacement.
-- Update CHANGELOG-AGENT.md.
+Budget moves to P2 (ethos bridge) and P3 (Visit contact fallback).
 
 ---
 
-### 3. Pixel — Mobile alignment sweep at 375 / 414
-**Why now:** First-ever pass on a brand-new site. The horizontal scroll-lock has a known mobile fallback to vertical — must be verified clean. Hero word-reveal must wrap properly. Form fields, gallery grid, stylist cards, visit columns all untested at small widths.
+## Dispatch — 4 agents, in execution order
 
-**Specific instructions:**
-- Test at exactly 375px and 414px viewport widths via Playwright against the live URL (not localhost).
-- Audit center-alignment consistency across all sections (`feedback_pixel_alignment` — this is the standing Pixel mandate).
-- Specifically verify:
-  1. Hero headline doesn't break awkwardly mid-word at 375. Word-reveal still fires. Eyebrow + sub + actions stack cleanly centered.
-  2. Silhouette scene scales — does not get cropped weirdly or block hero copy.
-  3. Services horizontal scroll-lock falls back to a clean vertical stack on mobile (verify the fallback exists and is tidy; if not, that's a finding for Builder cycle 2).
-  4. Stylists grid stacks to single column with proper spacing.
-  5. Gallery grid — masonry collapses cleanly. No images broken or overflowing.
-  6. Visit two-column collapses to stacked.
-  7. Contact form — all inputs full-width on mobile, tap targets ≥44x44px, labels readable.
-  8. Footer — wordmark / nav / social / copyright all stack cleanly.
-  9. Nav hamburger appears, links collapse, hamburger tap target is adequate.
-- Check for horizontal overflow at body/html level (no x-scroll bar except inside the services runway when desktop).
-- Font sizes ≥ 14px for any body copy on mobile.
-- Report findings as discrete fixes Refiner / Builder cycle 2 can pick up. Pixel can ship CSS fixes itself if the issue is purely a media-query value.
+### Agent 1 — Builder
 
-**Memory guardrails:**
-- Pixel ALWAYS audits center-alignment on mobile 375/414 (`feedback_pixel_alignment`).
-- Verify visual changes via Playwright, not theory.
-- Respectful tone in findings.
-- Do not remove animations / glows / effects to "fix" mobile (`feedback_nigel_no_removal` extends to all polish agents — only adjust, do not strip).
+**Scope:** Implement P2 (editorial ethos bridge above Stylists) + P3 (Visit contact fallback).
 
-**Exit criteria:**
-- Concrete findings list (each: section, viewport, issue, suggested fix) committed to AUDIT.md or directly to a Pixel-findings section in CHANGELOG-AGENT.md.
-- Any low-risk CSS fixes shipped (overflow guards, tap-target padding, line-height tweaks).
-- Update CHANGELOG-AGENT.md.
+**P2 — Editorial philosophy bridge:**
+- Insert a new section element between the closing `</section>` of `services` (around line ~265) and the opening `<section class="stylists" id="stylists">` (line 267).
+- Class: `philosophy` or `ethos-bridge`. Single-row band, espresso background (`var(--espresso)` or `var(--ink)`), cream type, copper rule above and/or below.
+- Content: a single brand-voice ethos line in Cormorant Garamond, large display weight. Suggested copy (Builder may refine within voice, but DO NOT attribute to a person):
+  - *"Considered cuts. Honest color. Slow conversation."*
+  - or *"We work slowly, on purpose."*
+  - or *"One chair. One appointment. Unhurried."*
+- This is brand voice, NOT a fake reviewer quote. No quote marks attributed to a name. No fabricated "—Camille" attributions.
+- Add CSS in `style.css` — copper rule top/bottom (1px solid `var(--copper)` with 60–80% opacity), generous vertical padding (clamp 80px–140px), centered text, max-width container ~720–820px.
+- Cormorant Garamond is already loaded for hero word-reveal — reuse the existing display font stack hero h1 uses.
 
----
+**P3 — Visit section contact fallback:**
+- File: `index.html`, around lines 392–397 (`.visit__address` and `.visit__note`).
+- Below the existing "Studio address coming soon" line, add a tasteful contact line. Use the same email used by the form interceptor for consistency: `hello@atelier.studio` (placeholder domain — honest interim, NOT a fake number).
+- Render as a `mailto:` link, copper hover, sized to match `.visit__address` typography.
+- Optional second short line: brand-voice note like "We answer email within one business day." — no fabricated SLAs, no fake response volumes.
+- Do NOT add a phone number — user has not provided one and we will not fabricate one.
 
-### 4. Nigel — First audit + cycle 2 priorities
-**Why now:** Brand-new site, first scoring pass. Customer wants strict cold-prospect-client scoring (5.5–7.5 range without real photography / real reviews). After Builder de-fabricates, Spark polishes, and Pixel audits, Nigel scores the result and sets cycle 2 direction.
+**Files Builder may touch:**
+- `/Users/modica/projects/salon-site/index.html` (insert ethos bridge, edit Visit section)
+- `/Users/modica/projects/salon-site/style.css` (new `.philosophy` / `.ethos-bridge` rules + minor `.visit__contact` styling)
+- `/Users/modica/projects/salon-site/CHANGELOG-AGENT.md` (append cycle 2 Builder line)
 
-**Specific instructions:**
-- Score the LIVE URL after agents 1–3 complete and deploy. Do not score localhost or theory.
-- Score from the perspective of a real prospective salon client landing cold via a Google search — would they trust this? Would they book?
-- Expected score range: **5.5–7.5**. Do not start at 7+. New site, stock photography, no real reviews, no real address — there is no way it earns above 7.5.
-- Provide a Top-3 priority list for cycle 2. Concrete, actionable, scoped to one agent each.
-- DO NOT recommend removing animations, glows, the silhouette scene, the horizontal scroll-lock, hover effects, or word-reveal — Nigel only adds or improves, never strips quality (`feedback_nigel_no_removal`).
-- DO NOT recommend ghost-number / faded-background-numeral motifs (`feedback_no_ghost_numbers`).
+**Files Builder must NOT touch:**
+- `main.js` (form interceptor is correct; do not undo the mailto fallback)
+- The `action="https://formspree.io/f/PLACEHOLDER"` attribute — leave it; the JS overrides it
+- Hero silhouette scene (Spark cycle 1 cooldown)
+- Service panel structure / runway 420vh / SLIDE_FRAC 1.0 (cycle 1 fix — do not undo)
+- Service panel copper rules (Spark cycle 1 cooldown)
+- Stylist names, role labels, bios (cycle 1 cooldown — neutralized correctly)
+- Gallery hover treatment (Spark cycle 1 cooldown)
+- Mobile nav `.nav__links { pointer-events: none }` rule (cycle 1 critical fix — do not undo)
 
-**Memory guardrails:**
-- Nigel scores stricter (`feedback_nigel_stricter`) — 5.5 floor for new sites without real assets.
-- Nigel never removes quality (`feedback_nigel_no_removal`).
-- No ghost numbers.
-- Apps must NOT look AI-generated — flag if any section reads template-y, but do NOT prescribe "remove."
-- Respectful tone — frame as opportunities, not blame. Never call user a bottleneck.
-
-**Forbidden recommendations:**
-- "Remove the silhouette" — never. Refine, replace, or improve only.
-- "Strip the horizontal scroll-lock" — never. It's a customer-requested signature element.
-- "Add ghost numerals to backgrounds" — explicitly banned.
-- "Add fake testimonials" — never. If review-section gap is the recommendation, frame it as "add a placeholder structure ready to receive real reviews when collected."
-
-**Exit criteria:**
-- Score logged to SCORES.log (numeric, 5.5–7.5 expected).
-- AUDIT.md updated with current state + Top-3 cycle 2 priorities.
-- Each priority names a target agent + axis.
-- Update CHANGELOG-AGENT.md.
+**Commit message format:**
+`builder cycle 2: ethos bridge above Stylists + Visit email fallback (P2/P3)`
 
 ---
 
-## Cycle 1 success
-- Live site no longer carries fabricated personal/location data.
-- Hero / silhouette feels more intentional than cycle 0.
-- Mobile alignment audited at 375/414 with findings logged.
-- Score on record. Cycle 2 priorities set.
+### Agent 2 — Spark (Frame B polish)
 
-## Cycle 1 forbidden across all agents
-- Adding fake testimonials, fake reviews, fake location maps, fake "as featured in" logos.
-- Adding cron jobs.
-- Removing the silhouette scene, horizontal scroll-lock, hover effects, animations, or word-reveal.
-- Adding ghost-numeral backgrounds.
-- Calling the user a bottleneck or framing waiting on assets as a blocker — frame as collaborative.
-- Trusting headless renders — every visual claim verified via Playwright on the live URL.
+**Scope:** Frame B polish on the new ethos bridge Builder just landed. Refine, do not replace; do not add an additional section.
+
+**Allowed moves:**
+- Tighten Cormorant rendering: `font-feature-settings: "liga", "dlig", "kern"`, optional `font-style: italic` on a single anchor word, optical letter-spacing (`-0.01em` to `-0.02em` on display sizes).
+- Adjust copper rule: experiment with rule weight (1px vs hairline 0.5px), width (full-bleed vs ~120–180px centered ornamental rule), or replace one rule with a small copper diamond/dot ornament.
+- Vertical rhythm: refine padding so the bridge feels weighted, not floating. Compare to Aesop ethos bands — slow, generous space.
+- May add ONE atmospheric detail (subtle texture, faint grain overlay, or copper gradient wash) IF it replaces something else. Do not pile on. Frame B keeps content count — the single ethos line stays a single ethos line.
+
+**Forbidden moves:**
+- NO ghost numbers / large faded background numerals (memory: `feedback_no_ghost_numbers`)
+- Do NOT remove glows, animations, or copper accents anywhere on the site (memory: `feedback_nigel_no_removal` — applies to Spark too in spirit)
+- Do NOT touch hero silhouette, services panels, gallery, stylist cards
+- Do NOT add a fake reviewer attribution under the ethos line. The line stands alone in brand voice.
+
+**Files Spark may touch:**
+- `/Users/modica/projects/salon-site/style.css` (only the ethos-bridge / philosophy rules Builder added)
+- `/Users/modica/projects/salon-site/index.html` (only inside the new ethos bridge section — NOT for adding new copy, only for adding `<span>` wrappers needed to style a single anchor word)
+- `/Users/modica/projects/salon-site/CHANGELOG-AGENT.md`
+
+**Files Spark must NOT touch:**
+- All cooldown sections listed under Builder
+- `main.js` (no behavior changes from Spark this cycle)
+
+**Commit message format:**
+`spark cycle 2: Frame B polish on ethos bridge — Cormorant ligatures, copper rule weight`
+
+---
+
+### Agent 3 — Pixel (mobile alignment audit)
+
+**Scope:** Audit the new ethos bridge + check no layout shift was introduced anywhere else by Builder/Spark changes. Mandate per memory: **center-alignment consistency at 375px and 414px.**
+
+**Specific audit points:**
+1. Ethos bridge at 375px: text centered? Container max-width respected? No horizontal overflow? Copper rule(s) render at correct visual weight on retina mobile?
+2. Ethos bridge at 414px: same checks; verify the bridge doesn't compress so tightly that line breaks make it look stub-paragraph-y vs intentional editorial.
+3. Visit section: new email line — vertical rhythm above/below? Centered? Tap target ≥44px on the `mailto:` link? Copper hover state visible / accessible focus ring?
+4. Regression sweep: Hero, Services (mobile stack fallback), Stylists grid, Gallery, Footer — no layout shift caused by inserting a new section into the page flow.
+5. Body / html `overflow-x: clip` still holds — no new x-scroll introduced.
+6. Section-heading center-alignment globals (cycle 1 fix) still in place.
+
+**Allowed fixes:**
+- Pixel may make tightly-scoped CSS adjustments to the new ethos-bridge or `.visit__contact` rules if the audit finds alignment / tap-target issues.
+- Pixel may NOT redesign — if audit finds a structural problem, flag it for cycle 3 instead of inventing a fix.
+
+**Files Pixel may touch:**
+- `/Users/modica/projects/salon-site/style.css` (mobile media queries only, scoped to bridge / visit-contact)
+- `/Users/modica/projects/salon-site/CHANGELOG-AGENT.md`
+
+**Files Pixel must NOT touch:**
+- All cooldown sections
+- `main.js`
+- `index.html` (audits visually; flags issues to be fixed in CSS)
+
+**Commit message format:**
+`pixel cycle 2: mobile audit 375/414 of ethos bridge + Visit email fallback`
+
+---
+
+### Agent 4 — Nigel (re-score + cycle 3 priorities)
+
+**Scope:** Re-score the site from a prospective salon client perspective. Strict cap 7.5 until real photography + real reviews + real address all land. Overwrite AUDIT.md with a cycle 2 audit (no history file — the file represents current state).
+
+**Required deliverables:**
+1. Section-by-section breakdown with scores (Nav, Hero, Services, Ethos Bridge [new], Stylists, Gallery, Visit, Contact/Form, Footer).
+2. Overall score with one-line rationale tied to a single conversion-friction or trust axis.
+3. Top-3 priorities for cycle 3, each tagged with target agent (Builder / Spark / Pixel) and axis.
+4. Append one line to `SCORES.log` — format: `YYYY-MM-DD HH:MM <score> <axis>`.
+
+**Nigel guardrails (memory-anchored):**
+- NEVER recommend removing glows, animations, copper accents, silhouette layers, or any quality element. Only "add" or "improve" recommendations (memory: `feedback_nigel_no_removal`).
+- Score from a real prospective client perspective, not a designer perspective (memory: `feedback_nigel_stricter`).
+- Cap at 7.5 until real address + real photography + real reviews land.
+- Do NOT recommend ghost numerals, fake reviews, fake credentials, fabricated stylist names, fabricated phone numbers, or invented client testimonials in cycle 3 priorities (memory: `feedback_no_invented_fight_data` extends to all fabricated content).
+- Frame respectfully — never call the user a bottleneck for missing real photography / real address (memory: `feedback_respectful_tone`).
+
+**Files Nigel may touch:**
+- `/Users/modica/projects/salon-site/AUDIT.md` (overwrite with cycle 2 audit)
+- `/Users/modica/projects/salon-site/SCORES.log` (append one line)
+- `/Users/modica/projects/salon-site/CHANGELOG-AGENT.md` (append cycle 2 Nigel line)
+
+**Files Nigel must NOT touch:**
+- `index.html`, `style.css`, `main.js` — Nigel does not write code
+
+**Commit message format:**
+`nigel cycle 2: score <X.X> — <axis name>`
+
+---
+
+## Memory rules — must be respected by every agent this cycle
+
+These are loaded from `/Users/modica/.claude/projects/-Users-modica/memory/MEMORY.md`. Re-stated here so every agent sees them:
+
+1. **Apps must NOT look AI-generated** (`feedback_unique_design`) — every change should reinforce Atelier's distinct urban-luxury editorial voice, not flatten toward generic salon templates.
+2. **Nigel never removes quality** (`feedback_nigel_no_removal`) — applies to Nigel above; restated for Spark in spirit.
+3. **Spark replaces when adding** (`feedback_simplicity_over_polish`) — applies to Agent 2.
+4. **Frame B keeps content count** (`feedback_frame_b_richness`) — the ethos bridge is a single ethos line; Spark must not turn it into a multi-element section.
+5. **NO ghost numbers** (`feedback_no_ghost_numbers`) — large faded background numerals are forbidden anywhere on the site.
+6. **NO fabricated content** (`feedback_no_invented_fight_data`) — no fake stylist names, fake addresses, fake reviews, fake phone numbers, fake testimonials, fake credentials. Builder cycle 1 already de-fabricated; do not re-introduce.
+7. **Pixel audits center-alignment at 375/414 every cycle** (`feedback_pixel_alignment`) — mandatory, not optional.
+8. **Nigel scores strict** (`feedback_nigel_stricter`) — real-client lens, capped 7.5 until real photo + real reviews + real address.
+9. **Respectful tone** (`feedback_respectful_tone`) — every agent's commit messages and audits frame collaboratively, never blame the user for blockers.
+
+---
+
+## Cooldowns — do NOT touch this cycle
+
+- Hero silhouette scene (Spark cycle 1 just landed it)
+- Service panel copper-rule structure (Spark cycle 1)
+- Service runway height 420vh + SLIDE_FRAC 1.0 (cycle 1 critical fix)
+- Gallery hover treatment / L-corner (Spark cycle 1)
+- Stylist names / role labels / bios (Builder cycle 1 neutralized correctly)
+- Mobile `.nav__links { pointer-events: none }` rule (cycle 1 critical fix)
+- Section heading center-alignment globals (Pixel cycle 1)
+- `btn--outline-sm` 44px min-height (Pixel cycle 1)
+- Eyebrow / spec font-size 13px on mobile (Pixel cycle 1)
+- Form `mailto:` interceptor in `main.js` (cycle 1 critical fix)
+
+---
+
+## Rationale (one line)
+
+Decision rules: P1 closed in 5fa0b54 → score 6.1 below 8.5 polish gate → no stuck-loop signal in last 4 changelog entries → fall back to standard rotation (Builder → Spark → Pixel → Nigel) targeting trust-bridge + Visit fallback, the two cycle 1 priorities the score gate left open.
