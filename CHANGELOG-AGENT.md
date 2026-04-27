@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Spark (cycle 3)
+
+2026-04-27 20:00 spark — Frame B: waitlist CTA replaced btn--primary copper fill with copper outline + tracked small-caps label hover-fills copper (replaced promotional fill), rule narrowed 80px→48px, statement letter-spacing -0.012em→-0.01em, max-width 720px→640px; gallery__mood-caption anchored with 40px copper hairline ::before rule (replaced bare margin gap alone), ref Aesop/Le Labo editorial restraint, replaced promotional copper fill
+
+---
+
 ## 2026-04-27 — Builder (cycle 3)
 
 2026-04-27 19:00 builder — cycle 3: gallery eyebrow "Pre-launch" + title "The studio takes shape." + sub-line + mood caption "Mood references"; waitlist beat section (Cormorant italic + copper rule + mailto CTA) between Stylists and Gallery; form action="#"; removed 3 TODO comments; removed footer social dead links; style.min.css regenerated (per PLAN.md)
