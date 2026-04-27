@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Coordinator (cycle 3)
+
+2026-04-27 18:00 coordinator — scheduled: Builder, Spark, Pixel, Nigel; focus: honest pre-launch trust signals + production HTML cleanup; forbidden: hero silhouette, services scroll-lock JS+CSS, ethos bridge typography, stylist names/bios, mobile tap-target globals
+
+---
+
 ## 2026-04-27 — Builder (urgent fix)
 
 2026-04-27 13:45 builder — fix: 3 horizontal scroll-lock bugs — panel 5 title shortened to "Brows & Add-ons", services__intro sub-line dropped + padding tightened + copper rule added, SLIDE_FRAC 1.0->0.85 + runway 420vh->480vh + dot-click uses SLIDE_FRAC (per PLAN.md)
