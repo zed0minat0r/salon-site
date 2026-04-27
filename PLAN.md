@@ -1,32 +1,30 @@
-# PLAN — Cycle 1 (Builder): De-fabricate placeholder content
+# PLAN — Cycle 2 (Builder): Ethos Bridge + Visit Email Fallback
 
 ## What changes
-- `index.html` — content/copy pass only. No structural or visual changes.
 
-## De-fabrication targets
+### Task 1: Ethos bridge section
+- `index.html` — insert `<section class="ethos">` between `</section>` end of services and `<section class="stylists">`
+- Copy: three fragments "Considered cuts. Honest color. Slow conversation."
+- Thin copper rule above, cream eyebrow label below
+- `style.css` — add `.ethos` block: espresso bg, Cormorant Garamond italic, generous vertical padding
 
-1. **Stylist cards (lines 255–308)**
-   - Camille: name → "Senior Colorist", bio removes "12 years NYC and London"
-   - Marcus: name → "Precision Stylist", bio removes "Vidal Sassoon alumni" claim
-   - Sasha: name → "Texture Specialist", bio cleaned of "keratin-certified" claim
-   - `alt` text updated to remove "Camille / Marcus / Sasha" names
-   - `Book with X` CTA buttons updated to role labels
-   - `h3` names updated
+### Task 2: Visit email fallback
+- `index.html` — add email link block between `.visit__address` and `.visit__note`
+- Copy: "Email us at hello@atelier.studio" (mailto link)
+- `style.css` — add `.visit__email` rule: copper-tinted link, underline on hover
 
-2. **Visit address (lines 370–376)**
-   - "148 West 26th Street, Suite 4, New York, NY 10001" → editorial placeholder
-   - Transit directions paragraph removed (implies specific NYC location)
-
-3. **Contact form phone placeholder** — already uses "(555) 000-0000", no change needed
+### Regenerate
+- `style.min.css` — npx clean-css-cli after CSS edits
 
 ## Files changed
-- `/Users/modica/projects/salon-site/index.html` — content only
+- `/Users/modica/projects/salon-site/index.html`
+- `/Users/modica/projects/salon-site/style.css`
+- `/Users/modica/projects/salon-site/style.min.css`
 
 ## Success criterion
-- Zero real-sounding street addresses
-- Zero stylist names implying real people with verifiable credentials
-- Page still reads editorial, not Lorem ipsum
-- Visual design, animations, sections unchanged
+- Ethos band visible between Services and Stylists with espresso bg, copper rule, italic Cormorant
+- Visit section shows mailto:hello@atelier.studio link
+- No regressions to hamburger, services runway, or form fallback from 5fa0b54
 
 ## Scope
-~30 lines changed in index.html
+~40 lines HTML + ~60 lines CSS
