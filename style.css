@@ -799,7 +799,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   border-top: 1px solid rgba(167, 140, 92, 0.18);
 }
 .waitlist__inner {
-  max-width: 720px;
+  max-width: 640px;
   margin: 0 auto;
   padding: 0 clamp(24px, 6vw, 80px);
   text-align: center;
@@ -809,39 +809,70 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   gap: 0;
 }
 .waitlist__rule {
-  width: 80px;
+  width: 48px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--copper) 30%, var(--copper) 70%, transparent);
-  box-shadow: 0 0 8px 0 rgba(192, 142, 108, 0.25);
-  margin-bottom: clamp(28px, 4vw, 44px);
+  background: linear-gradient(to right, transparent, var(--copper) 25%, var(--copper) 75%, transparent);
+  margin-bottom: clamp(36px, 5vw, 52px);
   flex-shrink: 0;
 }
 .waitlist__statement {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.45rem, 3.2vw, 2.2rem);
   font-weight: 300;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
   font-feature-settings: "liga" 1, "dlig" 1, "kern" 1;
   color: var(--espresso);
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: clamp(40px, 5vw, 56px);
 }
-.waitlist__cta {
+/* Override btn--primary on the waitlist CTA: editorial copper outline,
+   small-caps tracked label, hover fills copper — replaces promotional fill */
+.waitlist__cta.btn--primary {
+  background: transparent;
+  color: var(--espresso);
+  border: 1px solid var(--copper);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant-caps: small-caps;
+  padding: 14px 36px;
+  min-height: 44px;
   flex-shrink: 0;
+  box-shadow: none;
+}
+.waitlist__cta.btn--primary:hover {
+  background: var(--copper);
+  color: var(--espresso);
+  box-shadow: none;
+  transform: none;
 }
 
 /* ============================================
    GALLERY MOOD CAPTION
    ============================================ */
 .gallery__mood-caption {
-  margin-top: clamp(20px, 2.5vw, 32px);
+  position: relative;
+  margin-top: clamp(32px, 4vw, 48px);
+  margin-bottom: 0;
   font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
   color: var(--cream-60);
+  padding-top: clamp(20px, 2.5vw, 28px);
+}
+/* Hairline copper rule above caption as visual anchor — replaces bare margin gap alone */
+.gallery__mood-caption::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: rgba(192, 142, 108, 0.35);
 }
 
 /* ============================================
