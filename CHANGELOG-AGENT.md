@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Nigel (cycle 1)
+
+2026-04-27 14:00 nigel — focus axis: conversion-friction, top issue: Formspree endpoint is PLACEHOLDER — booking form is non-functional on live URL, entire conversion path is broken
+
+---
+
 ## 2026-04-27 — Pixel (cycle 1)
 
 ### Audit results — 375px / 414px
