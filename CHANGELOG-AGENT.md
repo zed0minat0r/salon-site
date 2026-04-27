@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Spark (cycle 2)
+
+2026-04-27 13:00 spark — Frame B: liga/dlig ligatures + letter-spacing -0.012em on ethos statement, copper hairline radial-fade rule (replaced solid 1.5px bar), faint copper radial vignette on espresso band (replaced flat bg), hairline border-top above eyebrow label (no content removed), ref Aesop/Le Labo editorial restraint
+
+---
+
 ## 2026-04-27 — Builder (cycle 2)
 
 2026-04-27 16:00 builder — cycle 2: ethos bridge (espresso band, copper rule, Cormorant italic "Considered cuts. Honest color. Slow conversation.") inserted between Services and Stylists; Visit section email fallback (mailto:hello@atelier.studio, copper link color, hover underline) added; style.min.css regenerated (per PLAN.md)
@@ -53,6 +59,7 @@
 - service-fp__num large display digits (opacity 0.10) are design ghost numbers at layout level — NOT eyebrow-pattern ghost numerals. OK per plan notes.
 
 2026-04-27 12:00 pixel — cycle 1: centered section headings on mobile, fixed btn--outline-sm tap target (added min-height:44px), bumped eyebrow/spec font-sizes to 13px on mobile
+2026-04-27 13:15 pixel — cycle 2: bumped hero__eyebrow/ethos__label/service-fp__price/form labels/footer links to 13px min; fixed visit email mailto tap target (inline-flex 44px); footer nav links min-width:44px; all verified clean at 375+414px
 
 ---
 

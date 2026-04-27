@@ -1152,9 +1152,19 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   .section-sub {
     text-align: center;
   }
-  /* Font-size floor: bump eyebrow labels to 13px min on mobile */
+  /* Font-size floor: 13px minimum across all body-level text — Pixel cycle 2 */
   .section-eyebrow { font-size: 0.8125rem; } /* 13px */
   .stylist-card__spec { font-size: 0.8125rem; } /* 13px */
+  .hero__eyebrow { font-size: 0.8125rem; } /* 13px — was 11.2px */
+  .ethos__label { font-size: 0.8125rem; } /* 13px — was 10.9px */
+  .service-fp__price { font-size: 0.8125rem; } /* 13px — was 12.5px */
+  .btn--outline-sm { font-size: 0.8125rem; } /* 13px — was 12px */
+  .btn--ghost { font-size: 0.8125rem; } /* 13px — was 12.8px */
+  .btn--primary,
+  .hero__link { font-size: 0.8125rem; } /* 13px — was 12.8px */
+  .form-group label,
+  .footer__copy,
+  .footer__nav a { font-size: 0.8125rem; } /* 13px — was 12px */
   /* section-sub: let it fill width on mobile rather than cap at 540px */
   .section-sub { max-width: 100%; }
 
@@ -1162,6 +1172,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   .visit__address,
   .visit__email,
   .visit__note { text-align: center; }
+
+  /* Visit email mailto — tap target fix: was display:inline at 19px height */
+  .visit__email a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
+  }
 
   /* Nav mobile */
   .nav__links {
@@ -1255,6 +1273,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   }
   .footer__brand { grid-column: auto; }
   .footer__nav { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  /* Footer nav tap targets: min-width 44px so short labels (Visit, Book) meet the 44px rule */
+  .footer__nav a { min-width: 44px; justify-content: center; padding: 0 8px; }
   .footer__social { justify-content: center; }
 }
 
