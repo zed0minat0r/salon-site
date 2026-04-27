@@ -1,27 +1,30 @@
-# PLAN — Horizontal Scroll-Lock Fix (3 bugs)
+# PLAN — Builder Cycle 3: Honest Gallery Framing + Waitlist Beat + HTML Hygiene
 
-**Files touched:** index.html, style.css, main.js, style.min.css
-**Scope:** ~20 lines changed across 3 files + regenerate minified CSS
+**Files touched:** index.html, style.css, style.min.css (regenerated), CHANGELOG-AGENT.md
+**Scope:** ~60 lines changed across 2 source files
 
-## Bug 1 — Panel 5 mobile title overflow (index.html)
-- Line 239: "Brows, Nails & Add-ons" → "Brows & Add-ons" (drop "Nails,")
-- style.css: add @media (max-width: 480px) rule on .service-fp__title:
-  font-size: clamp(2rem, 7vw, 2.6rem)
+## P1 — Gallery framing (index.html)
+- Line 349: eyebrow "Our work" -> "Pre-launch"
+- Line 350: headline "The proof." -> "The studio takes shape."
+- Add .section-sub below h2: "Real client work will live here once we open. Until then, here is the mood we are building toward."
+- Add .gallery__mood-caption below grid: "Mood references" (copper/cream-60, centered, low weight)
 
-## Bug 2 — Dead scroll zone (index.html + style.css)
-- index.html line 164: remove the .section-sub paragraph
-- style.css .services__intro padding: change to
-  clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(40px, 5vw, 60px)
-- Add copper bottom rule on .services__intro::after (thin 1px rule)
+## P2 — Pre-launch waitlist beat (index.html + style.css)
+- Insert new .waitlist section between STYLISTS and GALLERY
+- Cormorant italic pull line + copper rule + single CTA button
+- Button href="mailto:hello@atelier.studio?subject=Waitlist"
+- Parchment background, max-width 720px centered, generous vertical padding
+- New CSS: .waitlist, .waitlist__inner, .waitlist__rule, .waitlist__statement, .waitlist__cta
 
-## Bug 3 — Zero dwell on panel 5 (main.js + style.css)
-- main.js line 120: SLIDE_FRAC = 1.0 -> 0.85
-- main.js dot-click handler: use (budget * SLIDE_FRAC / segments) * i
-- style.css .services-runway height: 420vh -> 480vh
+## P3 — Production HTML cleanup (index.html)
+- Line 405: remove TODO comment, keep "Studio address coming soon" copy
+- Line 448: remove TODO comment
+- Line 452: action="https://formspree.io/f/PLACEHOLDER" -> action="#"
+- Lines 544-556: remove entire footer social block (TODO comment + two dead href="#" links)
 
 ## Success criteria
-- Desktop: pin happens almost immediately at section entry
-- Panel 5 lands with scroll-dwell before unpin
-- Mobile 375px: panel 5 title fits 1-2 lines
+- Gallery headline replaced, honest pre-launch framing
+- Waitlist beat renders between Stylists and Gallery
+- form action="#", no TODO comments, no footer social dead links
 
-**Commit:** fix: horizontal scroll-lock — intro tightened, panel 5 dwell, mobile title fit
+**Commit:** builder cycle 3: honest pre-launch framing — gallery headline, waitlist beat, HTML hygiene
