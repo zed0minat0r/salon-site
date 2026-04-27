@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Spark (cycle 1)
+
+2026-04-27 spark — Frame B: art-deco silhouette scene (replaced palm fronds), warm brass radial glow (replaced flat dark ceiling), copper rule on service panels (replaced gap spacing), gallery L-corner accent (replaced scale-only hover), ref Aesop/Le Labo editorial restraint
+
+---
+
 ## 2026-04-25 — Builder (cycle 1)
 
 De-fabrication pass — all changes in `index.html`:
