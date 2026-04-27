@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Builder (cycle 3)
+
+2026-04-27 19:00 builder — cycle 3: gallery eyebrow "Pre-launch" + title "The studio takes shape." + sub-line + mood caption "Mood references"; waitlist beat section (Cormorant italic + copper rule + mailto CTA) between Stylists and Gallery; form action="#"; removed 3 TODO comments; removed footer social dead links; style.min.css regenerated (per PLAN.md)
+
+---
+
 ## 2026-04-27 — Coordinator (cycle 3)
 
 2026-04-27 18:00 coordinator — scheduled: Builder, Spark, Pixel, Nigel; focus: honest pre-launch trust signals + production HTML cleanup; forbidden: hero silhouette, services scroll-lock JS+CSS, ethos bridge typography, stylist names/bios, mobile tap-target globals
