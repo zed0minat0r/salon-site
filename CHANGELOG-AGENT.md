@@ -1,5 +1,11 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Builder (cycle 2)
+
+2026-04-27 16:00 builder — cycle 2: ethos bridge (espresso band, copper rule, Cormorant italic "Considered cuts. Honest color. Slow conversation.") inserted between Services and Stylists; Visit section email fallback (mailto:hello@atelier.studio, copper link color, hover underline) added; style.min.css regenerated (per PLAN.md)
+
+---
+
 ## 2026-04-27 — Nigel (cycle 1)
 
 2026-04-27 14:00 nigel — focus axis: conversion-friction, top issue: Formspree endpoint is PLACEHOLDER — booking form is non-functional on live URL, entire conversion path is broken
