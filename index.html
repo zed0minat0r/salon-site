@@ -82,52 +82,64 @@
       </div>
     </div>
 
-    <!-- Silhouette scene — layered botanical/architectural silhouettes anchored at hero bottom -->
+    <!-- Warm brass radial — upper hero atmosphere, replaces flat dark gradient ceiling -->
+    <div class="hero__sun-glow" aria-hidden="true"></div>
+
+    <!-- Silhouette scene — art-deco architectural silhouettes anchored at hero bottom -->
     <div class="hero__silhouette" aria-hidden="true">
-      <!-- Back layer: wide frond mass -->
+
+      <!-- Back layer: wide architectural arches + colonnade -->
       <svg class="sil-layer sil-layer--back" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <!-- Large arcing palm fronds fanning right -->
-        <path d="M-60 320 Q80 200 220 120 Q180 200 160 290 Q100 260 -60 320Z" fill="currentColor"/>
-        <path d="M-40 320 Q120 180 280 80 Q240 175 200 300Z" fill="currentColor" opacity="0.7"/>
-        <path d="M-80 320 Q60 240 200 160 Q180 230 120 310Z" fill="currentColor" opacity="0.5"/>
-        <!-- Tall tropical frond left -->
-        <path d="M40 320 Q100 200 200 100 Q185 195 155 305Z" fill="currentColor"/>
-        <!-- Right side flora -->
-        <path d="M1500 320 Q1360 200 1220 120 Q1260 200 1280 290 Q1340 260 1500 320Z" fill="currentColor"/>
-        <path d="M1480 320 Q1320 180 1160 80 Q1200 175 1240 300Z" fill="currentColor" opacity="0.7"/>
-        <!-- Architectural arch silhouette center -->
-        <path d="M600 320 L600 220 Q720 140 840 220 L840 320Z" fill="currentColor" opacity="0.35"/>
-        <!-- Ground base bar -->
-        <rect x="0" y="310" width="1440" height="10" fill="currentColor"/>
+        <!-- Left colonnade arch -->
+        <path d="M0 320 L0 200 Q60 140 120 200 L120 320Z" fill="currentColor" opacity="0.6"/>
+        <path d="M130 320 L130 220 Q178 168 226 220 L226 320Z" fill="currentColor" opacity="0.55"/>
+        <path d="M235 320 L235 235 Q275 190 315 235 L315 320Z" fill="currentColor" opacity="0.45"/>
+        <!-- Right colonnade arch -->
+        <path d="M1440 320 L1440 200 Q1380 140 1320 200 L1320 320Z" fill="currentColor" opacity="0.6"/>
+        <path d="M1310 320 L1310 220 Q1262 168 1214 220 L1214 320Z" fill="currentColor" opacity="0.55"/>
+        <path d="M1205 320 L1205 235 Q1165 190 1125 235 L1125 320Z" fill="currentColor" opacity="0.45"/>
+        <!-- Centre grand arch -->
+        <path d="M540 320 L540 180 Q720 80 900 180 L900 320Z" fill="currentColor" opacity="0.30"/>
+        <!-- Ground base -->
+        <rect x="0" y="312" width="1440" height="8" fill="currentColor"/>
       </svg>
 
-      <!-- Mid layer: taller spiky fronds -->
+      <!-- Mid layer: tall art-deco spires + fan forms -->
       <svg class="sil-layer sil-layer--mid" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <path d="M-20 360 Q80 240 180 130 Q170 230 140 340Z" fill="currentColor"/>
-        <path d="M60 360 Q130 250 230 150 Q215 255 180 350Z" fill="currentColor"/>
-        <path d="M1420 360 Q1330 250 1230 150 Q1240 250 1260 350Z" fill="currentColor"/>
-        <path d="M1480 360 Q1360 240 1260 130 Q1270 230 1300 340Z" fill="currentColor"/>
-        <!-- Slender art-deco spires -->
-        <path d="M700 360 L714 200 L720 195 L726 200 L740 360Z" fill="currentColor" opacity="0.6"/>
-        <path d="M680 360 L692 230 L696 226 L700 230 L712 360Z" fill="currentColor" opacity="0.45"/>
-        <path d="M740 360 L752 240 L756 236 L760 240 L772 360Z" fill="currentColor" opacity="0.45"/>
+        <!-- Left fan / frond — geometric, 7-ray -->
+        <path d="M0 360 L0 280 L60 180 L66 280 L0 360Z" fill="currentColor" opacity="0.7"/>
+        <path d="M0 360 L0 300 L90 160 L94 300 L0 360Z" fill="currentColor" opacity="0.55"/>
+        <path d="M0 360 L20 340 L120 200 L122 340 Z" fill="currentColor" opacity="0.40"/>
+        <!-- Right fan mirror -->
+        <path d="M1440 360 L1440 280 L1380 180 L1374 280 L1440 360Z" fill="currentColor" opacity="0.7"/>
+        <path d="M1440 360 L1440 300 L1350 160 L1346 300 L1440 360Z" fill="currentColor" opacity="0.55"/>
+        <path d="M1440 360 L1420 340 L1320 200 L1318 340 Z" fill="currentColor" opacity="0.40"/>
+        <!-- Spires: left cluster -->
+        <path d="M280 360 L286 220 L290 210 L294 220 L300 360Z" fill="currentColor" opacity="0.65"/>
+        <path d="M310 360 L314 250 L317 242 L320 250 L324 360Z" fill="currentColor" opacity="0.50"/>
+        <path d="M255 360 L259 260 L262 252 L265 260 L269 360Z" fill="currentColor" opacity="0.40"/>
+        <!-- Spires: right cluster -->
+        <path d="M1160 360 L1154 220 L1150 210 L1146 220 L1140 360Z" fill="currentColor" opacity="0.65"/>
+        <path d="M1130 360 L1126 250 L1123 242 L1120 250 L1116 360Z" fill="currentColor" opacity="0.50"/>
+        <path d="M1185 360 L1181 260 L1178 252 L1175 260 L1171 360Z" fill="currentColor" opacity="0.40"/>
+        <!-- Centre spire trio -->
+        <path d="M700 360 L706 195 L712 185 L718 195 L724 360Z" fill="currentColor" opacity="0.55"/>
+        <path d="M672 360 L677 240 L681 232 L685 240 L690 360Z" fill="currentColor" opacity="0.38"/>
+        <path d="M750 360 L755 240 L759 232 L763 240 L768 360Z" fill="currentColor" opacity="0.38"/>
         <!-- Ground fill -->
-        <rect x="0" y="350" width="1440" height="10" fill="currentColor"/>
+        <rect x="0" y="352" width="1440" height="8" fill="currentColor"/>
       </svg>
 
-      <!-- Front layer: dense close botanical -->
+      <!-- Front layer: low stepped plinth / base frieze -->
       <svg class="sil-layer sil-layer--front" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <!-- Left cluster -->
-        <path d="M-100 280 Q0 180 100 90 Q80 180 50 270Z" fill="currentColor"/>
-        <path d="M-50 280 Q40 200 130 120 Q100 200 70 275Z" fill="currentColor"/>
-        <path d="M20 280 Q90 210 170 150 Q140 215 110 278Z" fill="currentColor"/>
-        <!-- Right cluster -->
-        <path d="M1540 280 Q1440 180 1340 90 Q1360 180 1390 270Z" fill="currentColor"/>
-        <path d="M1490 280 Q1400 200 1310 120 Q1340 200 1370 275Z" fill="currentColor"/>
-        <path d="M1420 280 Q1350 210 1270 150 Q1300 215 1330 278Z" fill="currentColor"/>
-        <!-- Broad low palm leaves reaching inward -->
-        <path d="M0 280 Q100 240 240 230 Q180 255 0 280Z" fill="currentColor"/>
-        <path d="M1440 280 Q1340 240 1200 230 Q1260 255 1440 280Z" fill="currentColor"/>
+        <!-- Stepped plinth left -->
+        <path d="M0 280 L0 230 L60 230 L60 220 L140 220 L140 230 L180 230 L180 280Z" fill="currentColor"/>
+        <path d="M170 280 L170 240 L260 240 L260 250 L310 250 L310 280Z" fill="currentColor" opacity="0.8"/>
+        <!-- Stepped plinth right -->
+        <path d="M1440 280 L1440 230 L1380 230 L1380 220 L1300 220 L1300 230 L1260 230 L1260 280Z" fill="currentColor"/>
+        <path d="M1270 280 L1270 240 L1180 240 L1180 250 L1130 250 L1130 280Z" fill="currentColor" opacity="0.8"/>
+        <!-- Centre platform -->
+        <path d="M580 280 L580 258 L660 258 L660 248 L780 248 L780 258 L860 258 L860 280Z" fill="currentColor"/>
         <!-- Ground bar -->
         <rect x="0" y="268" width="1440" height="12" fill="currentColor"/>
       </svg>
@@ -166,8 +178,10 @@
               <div class="service-fp__num">01</div>
               <h3 class="service-fp__title">Cuts &amp; <em>Styling</em></h3>
               <p class="service-fp__desc">Precision cuts shaped to your face, texture, and life. From lived-in layers to architectural bobs — nothing generic, nothing rushed.</p>
-              <p class="service-fp__price">Starting at $85</p>
-              <a href="#contact" class="btn btn--ghost">Book this</a>
+              <div class="service-fp__price-wrap">
+                <p class="service-fp__price">Starting at $85</p>
+                <a href="#contact" class="btn btn--ghost">Book this</a>
+              </div>
             </div>
           </div>
 
@@ -179,8 +193,10 @@
               <div class="service-fp__num">02</div>
               <h3 class="service-fp__title">Color &amp; <em>Highlights</em></h3>
               <p class="service-fp__desc">Full balayage, foil highlights, toning, vivid color, and grey blending. We formulate for longevity, not just opening-day drama.</p>
-              <p class="service-fp__price">Starting at $140</p>
-              <a href="#contact" class="btn btn--ghost">Book this</a>
+              <div class="service-fp__price-wrap">
+                <p class="service-fp__price">Starting at $140</p>
+                <a href="#contact" class="btn btn--ghost">Book this</a>
+              </div>
             </div>
           </div>
 
@@ -192,8 +208,10 @@
               <div class="service-fp__num">03</div>
               <h3 class="service-fp__title">Deep <em>Treatments</em></h3>
               <p class="service-fp__desc">Keratin smoothing, bond repair, scalp treatments, and deep conditioning rituals. The kind of care your hair has been asking for.</p>
-              <p class="service-fp__price">Starting at $75</p>
-              <a href="#contact" class="btn btn--ghost">Book this</a>
+              <div class="service-fp__price-wrap">
+                <p class="service-fp__price">Starting at $75</p>
+                <a href="#contact" class="btn btn--ghost">Book this</a>
+              </div>
             </div>
           </div>
 
@@ -205,8 +223,10 @@
               <div class="service-fp__num">04</div>
               <h3 class="service-fp__title">Blowouts &amp; <em>Events</em></h3>
               <p class="service-fp__desc">Bridal prep, editorial sets, event-day styling, and weekly blowout memberships. We show up for your moments.</p>
-              <p class="service-fp__price">Starting at $65</p>
-              <a href="#contact" class="btn btn--ghost">Book this</a>
+              <div class="service-fp__price-wrap">
+                <p class="service-fp__price">Starting at $65</p>
+                <a href="#contact" class="btn btn--ghost">Book this</a>
+              </div>
             </div>
           </div>
 
@@ -218,8 +238,10 @@
               <div class="service-fp__num">05</div>
               <h3 class="service-fp__title">Brows, Nails &amp; <em>Add-ons</em></h3>
               <p class="service-fp__desc">Brow shaping, nail care, and finish services to round out your visit. Leave with everything considered.</p>
-              <p class="service-fp__price">Starting at $30</p>
-              <a href="#contact" class="btn btn--ghost">Book this</a>
+              <div class="service-fp__price-wrap">
+                <p class="service-fp__price">Starting at $30</p>
+                <a href="#contact" class="btn btn--ghost">Book this</a>
+              </div>
             </div>
           </div>
 
