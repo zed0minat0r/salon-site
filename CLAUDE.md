@@ -19,13 +19,13 @@ Running `scrollIntoView()` once and reading state at top-of-section is **not ver
 
 If the UI involves transforms applied by JS based on scroll progress, you must verify the transform value at multiple scroll positions, not just one.
 
-## Known anti-pattern that already bit us once
+## Disabling a feature is not a fix
 
-**JS scroll-handlers applying `transform: translateX(-Xvw)` without a media-query guard.**
+The horizontal scroll-lock is the **whole point of this site** — the customer specifically asked for it. If it breaks on mobile, you fix the breakage, you do not bail out of the JS, you do not collapse the layout to a vertical stack, you do not hide the feature behind a media-query guard. Removing the thing the customer asked for is not a solution; it is a regression dressed as a fix.
 
-The mobile breakpoint (`@media (max-width: 768px)`) flips `.services-track` to `flex-direction: column` and `.services-sticky` to `overflow: visible`. If the JS still calculates a horizontal translate, the entire stacked column slides off-screen left as the user scrolls — leaving an empty viewport where panels should be. User reports this as "page scrolls right with no info."
+The previous bug (panels sliding offscreen on mobile) happened because the CSS flipped `.services-track` to `flex-direction: column` while the JS still applied a horizontal translate. The right fix was to keep the row-layout track on mobile and tune panel content for narrow viewport — **not** to disable the JS slide. Both pieces — CSS and JS — must agree that mobile slides horizontally.
 
-The `main.js` services scroll-lock now checks `window.matchMedia('(max-width: 768px)').matches` at the top of `onScroll()` and bails. Don't remove that check. If you add another scroll-driven horizontal-translate elsewhere, it needs the same guard.
+If you ever find yourself adding `if (mobileMQ.matches) return;` to a scroll handler driving a feature the user explicitly asked for, stop and fix the underlying mismatch instead.
 
 ## Brand & content
 
