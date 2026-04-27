@@ -484,13 +484,26 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
 .services__intro {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: var(--section-pad) clamp(24px, 6vw, 80px) 60px;
+  padding: clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(40px, 5vw, 60px);
+  position: relative;
+}
+/* Thin copper rule telegraphs "scroll into locked section" — mirrors craft-site pattern */
+.services__intro::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: clamp(24px, 6vw, 80px);
+  right: clamp(24px, 6vw, 80px);
+  height: 1px;
+  background: linear-gradient(to right, var(--copper), transparent 80%);
+  opacity: 0.45;
 }
 
-/* Runway holds the sticky container; height = N extra viewports for scroll budget */
+/* Runway holds the sticky container; height = N extra viewports for scroll budget.
+   480vh = 5 panels * scroll budget + dwell window for panel 5 (SLIDE_FRAC 0.85) */
 .services-runway {
   position: relative;
-  height: 420vh; /* 5 panels — tight runway so the section unpins right after panel 5 lands instead of holding a 100vh frozen void after */
+  height: 480vh;
 }
 .services-sticky {
   position: sticky;
@@ -1288,6 +1301,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   }
   .gallery__item--tall { grid-row: span 1; }
   .service-fp { height: 100vw; max-height: 420px; }
+}
+
+/* ============================================
+   VERY SMALL MOBILE — 480px and below
+   Panel titles: tighter font-size so longest title
+   ("Brows & Add-ons") fits on 1 line at 375px
+   ============================================ */
+@media (max-width: 480px) {
+  .service-fp__title {
+    font-size: clamp(2rem, 7vw, 2.6rem);
+  }
 }
 
 /* ============================================

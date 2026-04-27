@@ -115,9 +115,10 @@
     var progress = scrolled / budget; // 0 → 1
     if (progress > 1) progress = 1;
 
-    // Slide eats the full budget — no dwell on panel 5 (was creating a 100vh
-    // frozen void after the slide finished). Section unpins right at panel 5.
-    var SLIDE_FRAC   = 1.0;
+    // SLIDE_FRAC < 1.0 means panel 5 arrives before the runway budget is exhausted,
+    // giving the user dwell time on the last panel before the section unpins.
+    // 0.85 = slight dwell (5 panels needs less than craft-site's 0.75 for 4 panels).
+    var SLIDE_FRAC   = 0.85;
     var slideProgress = progress / SLIDE_FRAC;
     if (slideProgress > 1) slideProgress = 1;
 
@@ -129,14 +130,17 @@
     setActiveDot(idx);
   }
 
-  // Dot clicks: jump to the scroll position for that panel
+  // Dot clicks: jump to the scroll position for that panel.
+  // Uses SLIDE_FRAC so target positions match the actual slide mapping
+  // (panel i arrives at budget * SLIDE_FRAC * (i / segments)).
+  var SLIDE_FRAC = 0.85;
   dots.forEach(function (dot, i) {
     dot.addEventListener('click', function () {
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
       var budget    = runway.offsetHeight - window.innerHeight;
       var segments  = numPanels - 1;
       var target = segments > 0
-        ? runwayTop + (budget / segments) * i + 2
+        ? runwayTop + (budget * SLIDE_FRAC / segments) * i + 2
         : runwayTop + 2;
       window.scrollTo({ top: target, behavior: 'smooth' });
     });

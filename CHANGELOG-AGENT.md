@@ -1,5 +1,9 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Builder (urgent fix)
+
+2026-04-27 13:45 builder — fix: 3 horizontal scroll-lock bugs — panel 5 title shortened to "Brows & Add-ons", services__intro sub-line dropped + padding tightened + copper rule added, SLIDE_FRAC 1.0->0.85 + runway 420vh->480vh + dot-click uses SLIDE_FRAC (per PLAN.md)
+
 ## 2026-04-27 — Nigel (cycle 2)
 
 2026-04-27 17:00 nigel — focus axis: trust architecture, top issue: "Studio address coming soon" + stock-only photography keep trust ceiling capped regardless of design quality
