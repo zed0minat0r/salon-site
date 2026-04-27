@@ -1,29 +1,32 @@
-# PLAN — Cycle 0: Atelier Salon Site Scaffold
+# PLAN — Cycle 1 (Builder): De-fabricate placeholder content
 
 ## What changes
-- `index.html` — full single-page site: nav, hero, services (h-scroll lock), stylists, gallery, visit, contact, footer
-- `style.css` — all styles, section-divided, mobile-first
-- `main.js` — scroll-lock (craft-site pattern), word-reveal observer, nav scroll, form handling
-- `README.md` — project doc
-- `.github/workflows/pages.yml` — GH Pages deploy
-- `assets/` — placeholder dir
+- `index.html` — content/copy pass only. No structural or visual changes.
 
-## Sections in order
-1. Nav: fixed, transparent → solid on scroll, Book Now CTA
-2. Hero: full-viewport, word-by-word headline, layered botanical SVG silhouettes at bottom, scroll hint
-3. Services: horizontal scroll-lock runway (craft-site process-runway/track/fp pattern), 5 panels
-4. Stylists: 3-card grid/stack
-5. Gallery: staggered 3-col grid, 9 placeholders, hover lift
-6. Visit: address/hours, parchment bg
-7. Contact/Booking: form → Formspree placeholder
-8. Footer
+## De-fabrication targets
+
+1. **Stylist cards (lines 255–308)**
+   - Camille: name → "Senior Colorist", bio removes "12 years NYC and London"
+   - Marcus: name → "Precision Stylist", bio removes "Vidal Sassoon alumni" claim
+   - Sasha: name → "Texture Specialist", bio cleaned of "keratin-certified" claim
+   - `alt` text updated to remove "Camille / Marcus / Sasha" names
+   - `Book with X` CTA buttons updated to role labels
+   - `h3` names updated
+
+2. **Visit address (lines 370–376)**
+   - "148 West 26th Street, Suite 4, New York, NY 10001" → editorial placeholder
+   - Transit directions paragraph removed (implies specific NYC location)
+
+3. **Contact form phone placeholder** — already uses "(555) 000-0000", no change needed
+
+## Files changed
+- `/Users/modica/projects/salon-site/index.html` — content only
 
 ## Success criterion
-- Zero console errors
-- H-scroll lock works desktop + mobile
-- Word reveal fires on load
-- Nav solidifies on scroll
-- Pages deploy runs on push to main
+- Zero real-sounding street addresses
+- Zero stylist names implying real people with verifiable credentials
+- Page still reads editorial, not Lorem ipsum
+- Visual design, animations, sections unchanged
 
 ## Scope
-~800 LOC HTML, ~900 LOC CSS, ~200 LOC JS
+~30 lines changed in index.html
