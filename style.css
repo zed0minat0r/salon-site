@@ -642,7 +642,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
    ETHOS BRIDGE
    ============================================ */
 .ethos {
-  background: var(--espresso);
+  /* faint copper-tinted radial vignette — replaces flat background; makes espresso band feel lit */
+  background:
+    radial-gradient(ellipse 70% 100% at 50% 50%, rgba(192, 142, 108, 0.055) 0%, transparent 72%),
+    var(--espresso);
   padding: clamp(96px, 14vh, 160px) 0;
 }
 .ethos__inner {
@@ -669,8 +672,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
 }
 .ethos__rule {
   width: 80px;
-  height: 1.5px;
-  background: var(--copper);
+  height: 1px;
+  /* hairline weight with radial fade — replaces solid 1.5px bar; recedes toward edges, anchors center */
+  background: linear-gradient(to right, transparent, var(--copper) 30%, var(--copper) 70%, transparent);
+  box-shadow: 0 0 8px 0 rgba(192, 142, 108, 0.25);
   margin-bottom: clamp(32px, 4vw, 48px);
   flex-shrink: 0;
 }
@@ -680,15 +685,20 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 300;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  /* editorial tracking: eased from -0.02em — Cormorant Garamond italic opens better at -0.012em */
+  letter-spacing: -0.012em;
+  font-feature-settings: "liga" 1, "dlig" 1, "kern" 1;
   color: var(--cream);
   margin-bottom: clamp(28px, 3.5vw, 44px);
 }
 .ethos__label {
   font-size: 0.68rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+  /* hairline rule above label separates it from the statement; replaces bare float */
+  border-top: 1px solid rgba(245, 239, 231, 0.12);
+  padding-top: 14px;
   color: var(--cream-60);
 }
 
