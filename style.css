@@ -490,7 +490,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
 /* Runway holds the sticky container; height = N extra viewports for scroll budget */
 .services-runway {
   position: relative;
-  height: 500vh; /* 5 panels: 75% slide budget + 25% dwell on last */
+  height: 420vh; /* 5 panels — tight runway so the section unpins right after panel 5 lands instead of holding a 100vh frozen void after */
 }
 .services-sticky {
   position: sticky;
@@ -1099,8 +1099,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
     transform: translateY(-110%);
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
     border-bottom: 1px solid rgba(192,142,108,0.2);
+    /* Closed state: don't intercept taps that should hit the hamburger button below.
+       Without this, the bottom edge of the translateY(-110%) overlay still has its
+       layout box at top:nav-h and pointer-events:auto, swallowing taps on the toggle. */
+    pointer-events: none;
   }
-  .nav__links.is-open { transform: translateY(0); }
+  .nav__links.is-open {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
   .nav__links li { width: 100%; text-align: center; }
   .nav__link {
     padding: 14px 24px;

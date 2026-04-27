@@ -115,8 +115,9 @@
     var progress = scrolled / budget; // 0 → 1
     if (progress > 1) progress = 1;
 
-    // First 80% of budget drives the slide; last 20% dwells on panel 5
-    var SLIDE_FRAC   = 0.80;
+    // Slide eats the full budget — no dwell on panel 5 (was creating a 100vh
+    // frozen void after the slide finished). Section unpins right at panel 5.
+    var SLIDE_FRAC   = 1.0;
     var slideProgress = progress / SLIDE_FRAC;
     if (slideProgress > 1) slideProgress = 1;
 
@@ -134,9 +135,8 @@
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
       var budget    = runway.offsetHeight - window.innerHeight;
       var segments  = numPanels - 1;
-      var SLIDE_FRAC = 0.80;
       var target = segments > 0
-        ? runwayTop + (budget * SLIDE_FRAC / segments) * i + 2
+        ? runwayTop + (budget / segments) * i + 2
         : runwayTop + 2;
       window.scrollTo({ top: target, behavior: 'smooth' });
     });
@@ -205,7 +205,44 @@
       return;
     }
 
-    // Formspree handles the POST; show loading state optimistically
+    // Until a real Formspree (or other) endpoint is wired in, intercept the POST
+    // and open a mailto draft with the inquiry pre-filled. Then show the success
+    // state inline so the user gets affirmative feedback. Replace the action
+    // attribute with the real endpoint to switch back to a normal POST flow.
+    var action = form.getAttribute('action') || '';
+    if (action.indexOf('PLACEHOLDER') !== -1 || action === '' || action === '#') {
+      e.preventDefault();
+      var phone = form.querySelector('#f-phone');
+      var date  = form.querySelector('#f-date');
+      var window_ = form.querySelector('#f-window');
+      var notes = form.querySelector('#f-notes');
+      var subject = encodeURIComponent('Booking inquiry — ' + (service && service.value ? service.value : 'general'));
+      var body = [
+        'Name: '    + (name ? name.value : ''),
+        'Email: '   + (email ? email.value : ''),
+        'Phone: '   + (phone ? phone.value : ''),
+        'Service: ' + (service ? service.value : ''),
+        'Date: '    + (date ? date.value : ''),
+        'Window: '  + (window_ ? window_.value : ''),
+        '',
+        'Notes:',
+        (notes ? notes.value : '')
+      ].join('\n');
+      var mailto = 'mailto:hello@atelier.studio?subject=' + subject + '&body=' + encodeURIComponent(body);
+
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      // Show success state inline (don't redirect away)
+      success.hidden = false;
+      form.hidden = true;
+
+      // Open the user's mail client in a new window/tab
+      window.open(mailto, '_blank');
+      return;
+    }
+
+    // Real endpoint wired — let the form post normally
     btn.classList.add('loading');
     btn.disabled = true;
   });
