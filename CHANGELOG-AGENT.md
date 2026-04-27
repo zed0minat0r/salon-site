@@ -1,5 +1,49 @@
 # CHANGELOG-AGENT — Atelier Salon Site
 
+## 2026-04-27 — Pixel (cycle 1)
+
+### Audit results — 375px / 414px
+
+**NAV:** PASS. Hamburger 44x44px. Mobile nav links 44px tap height with padding 14px. CTA hidden on mobile. Brand wordmark 44px min-height aligned.
+
+**HERO:** PASS. Word-reveal fires. Left-aligned editorial copy — intentional design, not drift. hero__actions stacks col on mobile. hero__sub clamp(0.95rem, 1.6vw, 1.1rem) = 15.2px min, fine. sun-glow min 500px width but fully contained by hero overflow:hidden, no body x-scroll.
+
+**SILHOUETTE:** PASS at 375px. preserveAspectRatio xMidYMax slice scales correctly — centre grand arch (x 540–900 in 1440 viewBox) stays within visible slice region. No clipping artifact.
+
+**SERVICES (mobile stack fallback):** PASS. services-runway height:auto, services-sticky position:relative, services-track flex-direction:column. 5 panels stack cleanly. JS guard exits gracefully (budget<=0). Progress dots hidden on mobile. service-fp height 100vw capped at 420px on <=414.
+
+**STYLISTS:** PASS. Single-column grid. Cards render cleanly. No overflow.
+
+**GALLERY:** PASS. 2-col at <=768, 1-col at <=414. gallery__item--wide resets to span 1. No overflow.
+
+**VISIT:** PASS after fix. Two-col collapses to single-col. Text centered post-fix.
+
+**CONTACT FORM:** PASS. form-row collapses to 1-col. All inputs min-height 44px. form-footer stacks col on mobile.
+
+**FOOTER:** PASS. 3-col grid to 1-col. footer__nav wraps centered. Social links centered.
+
+**HORIZONTAL OVERFLOW:** PASS. html/body overflow-x:clip. hero overflow:hidden contains sun-glow. No x-scroll at either viewport.
+
+**CONSOLE ERRORS:** Not auditable statically — JS is simple and defensive (early returns on missing elements).
+
+### Issues found and fixed
+
+1. **Section headings not centered on mobile** (Pixel mandate) — FIXED. Added mobile rule: `.section-eyebrow`, `.section-title`, `.section-sub` all `text-align: center` at <=768px. Also centered `.visit__address` and `.visit__note`. Released `.section-sub` max-width cap (540px) on mobile.
+
+2. **`btn--outline-sm` tap target** — FIXED. Added `min-height: 44px` to stylist card Book CTAs. Previous height ~40px (padding 10px + 12px font-size * 1.65 line-height).
+
+3. **Eyebrow / spec font-size 11.2px** — FIXED on mobile. `.section-eyebrow` and `.stylist-card__spec` bumped to `0.8125rem` (13px) at <=768px. Desktop values remain design-intent small-caps.
+
+### Flagged for future cycles (not fixed — design or desktop only)
+
+- Nav link / button font-sizes (0.75–0.8rem = 12–12.8px) are desktop design intent (all-caps label pattern). Leave for Nigel to score.
+- `hero__scroll-label` at 0.65rem is aria-hidden="true" — not an a11y concern.
+- service-fp__num large display digits (opacity 0.10) are design ghost numbers at layout level — NOT eyebrow-pattern ghost numerals. OK per plan notes.
+
+2026-04-27 12:00 pixel — cycle 1: centered section headings on mobile, fixed btn--outline-sm tap target (added min-height:44px), bumped eyebrow/spec font-sizes to 13px on mobile
+
+---
+
 ## 2026-04-27 — Spark (cycle 1)
 
 2026-04-27 spark — Frame B: art-deco silhouette scene (replaced palm fronds), warm brass radial glow (replaced flat dark ceiling), copper rule on service panels (replaced gap spacing), gallery L-corner accent (replaced scale-only hover), ref Aesop/Le Labo editorial restraint

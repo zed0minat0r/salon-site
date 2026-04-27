@@ -155,6 +155,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   border: 1px solid var(--espresso);
   padding: 10px 20px;
   font-size: 0.75rem;
+  min-height: 44px;
 }
 .btn--outline-sm:hover {
   background: var(--espresso);
@@ -1066,6 +1067,22 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
    ============================================ */
 @media (max-width: 768px) {
   :root { --nav-h: 60px; }
+
+  /* Center section headings / eyebrows on mobile — Pixel mandate */
+  .section-eyebrow,
+  .section-title,
+  .section-sub {
+    text-align: center;
+  }
+  /* Font-size floor: bump eyebrow labels to 13px min on mobile */
+  .section-eyebrow { font-size: 0.8125rem; } /* 13px */
+  .stylist-card__spec { font-size: 0.8125rem; } /* 13px */
+  /* section-sub: let it fill width on mobile rather than cap at 540px */
+  .section-sub { max-width: 100%; }
+
+  /* Visit info text center on mobile */
+  .visit__address,
+  .visit__note { text-align: center; }
 
   /* Nav mobile */
   .nav__links {
