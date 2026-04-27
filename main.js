@@ -95,13 +95,22 @@
     });
   }
 
+  var mobileMQ = window.matchMedia('(max-width: 768px)');
+
   function onScroll() {
+    // Mobile: panels stack vertically (flex-direction: column). The horizontal
+    // translate would slide the whole column off-screen left, leaving an empty
+    // viewport — that's the "page scrolls right with no info" bug. Bail.
+    if (mobileMQ.matches) {
+      track.style.transform = '';
+      setActiveDot(0);
+      return;
+    }
+
     var rect     = runway.getBoundingClientRect();
     var runwayH  = runway.offsetHeight;
     var vh       = window.innerHeight;
 
-    // Guard: if runway is shorter than a viewport, skip
-    // (mobile stack layout where runway is auto-height)
     var budget = runwayH - vh;
     if (budget <= 0) {
       track.style.transform = 'translateX(0)';
